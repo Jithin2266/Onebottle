@@ -21,6 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const startDateInput = document.getElementById('start-date');
     const completionDateInput = document.getElementById('completion-date');
     
+    // Prevent selecting past dates
+    if (startDateInput && completionDateInput) {
+        const todayStr = new Date().toISOString().split('T')[0];
+        startDateInput.min = todayStr;
+        completionDateInput.min = todayStr;
+    }
+    
     if (todayCheckbox) {
         todayCheckbox.addEventListener('change', (e) => {
             if (e.target.checked) {
@@ -90,6 +97,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 saveTasks();
                 renderTasks();
             }
+        } else if (e.target.closest('.tomorrow-btn')) {
+            const task = tasks.find(t => t.id === id);
+            if (task) {
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                const tomorrowStr = tomorrow.toISOString().split('T')[0];
+                task.startDate = tomorrowStr;
+                task.completionDate = tomorrowStr;
+                saveTasks();
+                renderTasks();
+            }
         }
     });
 
@@ -154,6 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span>🏁 Due: ${formatDate(task.completionDate)}</span>
                 </div>
                 <div class="task-actions">
+                    ${!task.completed ? `<button class="btn-icon tomorrow-btn" title="Move to Tomorrow">⏭️</button>` : ''}
                     <button class="btn-icon complete-btn check" title="${task.completed ? 'Mark as incomplete' : 'Mark as complete'}">
                         ${task.completed ? '✅' : '✓'}
                     </button>
