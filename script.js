@@ -1,4 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Register Service Worker for PWA / APK support
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js')
+            .then(registration => console.log('ServiceWorker registered with scope:', registration.scope))
+            .catch(error => console.log('ServiceWorker registration failed:', error));
+    }
+
     const taskForm = document.getElementById('task-form');
     const taskList = document.getElementById('task-list');
 
