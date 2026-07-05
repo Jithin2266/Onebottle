@@ -117,6 +117,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return priorityMap[b.priority] - priorityMap[a.priority];
         });
 
+        const todayStr = new Date().toISOString().split('T')[0];
+
         sortedTasks.forEach(task => {
             const taskElement = document.createElement('div');
             taskElement.className = `task-item ${task.completed ? 'completed' : ''}`;
@@ -127,6 +129,16 @@ document.addEventListener('DOMContentLoaded', () => {
             taskElement.style.transition = 'all 0.3s ease';
 
             const reminderIcon = task.reminder ? '🔔' : '';
+            
+            const isOverdue = !task.completed && task.completionDate < todayStr;
+            const isDueToday = !task.completed && task.completionDate === todayStr;
+            
+            let statusBadge = '';
+            if (isOverdue) {
+                statusBadge = `<span class="badge" style="background: rgba(239, 68, 68, 0.2); color: #ef4444; border-color: rgba(239, 68, 68, 0.5);">⚠️ Overdue</span>`;
+            } else if (isDueToday) {
+                statusBadge = `<span class="badge" style="background: rgba(234, 179, 8, 0.2); color: #eab308; border-color: rgba(234, 179, 8, 0.5);">⏳ Due Today</span>`;
+            }
 
             taskElement.innerHTML = `
                 <div class="task-header">
@@ -134,6 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="badges">
                         <span class="badge priority-${task.priority}">${task.priority}</span>
                         <span class="badge category">${task.category}</span>
+                        ${statusBadge}
                     </div>
                 </div>
                 <div class="task-details">
@@ -159,5 +172,40 @@ document.addEventListener('DOMContentLoaded', () => {
         // We use split to avoid timezone shifting issues
         const [year, month, day] = dateString.split('-');
         return new Date(year, month - 1, day).toLocaleDateString(undefined, options);
+    }
+
+    // Reminders and Notifications
+    function checkReminders() {
+        if (Notification.permission !== "granted") return;
+        const todayStr = new Date().toISOString().split('T')[0];
+        let reminderTasks = [];
+        
+        tasks.forEach(task => {
+            if (!task.completed && task.reminder && task.completionDate <= todayStr) {
+                reminderTasks.push(task.name);
+            }
+        });
+
+        if (reminderTasks.length > 0) {
+            const displayTasks = reminderTasks.slice(0, 3);
+            const extra = reminderTasks.length > 3 ? `\n...and ${reminderTasks.length - 3} more` : '';
+            
+            new Notification("Daily Clock Reminder", {
+                body: `You have ${reminderTasks.length} pending task(s) due!\n- ${displayTasks.join('\n- ')}${extra}`,
+                icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Check_green_icon.svg/512px-Check_green_icon.svg.png"
+            });
+        }
+    }
+
+    // Request Notification permission and schedule checks
+    if ("Notification" in window) {
+        Notification.requestPermission().then(permission => {
+            if (permission === "granted") {
+                // Check once shortly after load
+                setTimeout(checkReminders, 2000);
+                // Then check every hour
+                setInterval(checkReminders, 60 * 60 * 1000);
+            }
+        });
     }
 });
