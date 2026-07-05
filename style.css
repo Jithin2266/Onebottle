@@ -44,6 +44,33 @@ body {
     background: linear-gradient(to bottom, #000000 0%, #1a0800 30%, #521c04 60%, #a83d09 85%, #e8631c 100%);
 }
 
+/* Bubbles */
+.bubble {
+    position: absolute;
+    bottom: -100px;
+    background: rgba(255, 87, 34, 0.15);
+    border: 1px solid rgba(255, 120, 50, 0.3);
+    border-radius: 50%;
+    backdrop-filter: blur(3px);
+    animation: floatUp 15s infinite ease-in;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-120vh) scale(1.5); opacity: 0; }
+}
+
+.bubble:nth-child(1) { width: 40px; height: 40px; left: 10%; animation-duration: 12s; }
+.bubble:nth-child(2) { width: 80px; height: 80px; left: 25%; animation-duration: 18s; animation-delay: 2s; }
+.bubble:nth-child(3) { width: 30px; height: 30px; left: 40%; animation-duration: 10s; animation-delay: 5s; }
+.bubble:nth-child(4) { width: 60px; height: 60px; left: 60%; animation-duration: 15s; animation-delay: 1s; }
+.bubble:nth-child(5) { width: 50px; height: 50px; left: 75%; animation-duration: 20s; animation-delay: 4s; }
+.bubble:nth-child(6) { width: 70px; height: 70px; left: 90%; animation-duration: 17s; animation-delay: 3s; }
+.bubble:nth-child(7) { width: 35px; height: 35px; left: 50%; animation-duration: 11s; animation-delay: 6s; }
+.bubble:nth-child(8) { width: 45px; height: 45px; left: 5%; animation-duration: 14s; animation-delay: 7s; }
+
 
 
 
