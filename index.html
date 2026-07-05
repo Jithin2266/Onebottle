@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="background-elements">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <h1>Task Portal</h1>
+            <p>Manage your daily goals efficiently</p>
+        </header>
+        
+        <main class="dashboard">
+            <section class="task-form-container glass-panel">
+                <h2>Create New Task</h2>
+                <form id="task-form">
+                    <div class="form-group">
+                        <label for="task-name">Task Name</label>
+                        <input type="text" id="task-name" required placeholder="What needs to be done?">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="start-date">Start Date</label>
+                            <input type="date" id="start-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="completion-date">Completion Date</label>
+                            <input type="date" id="completion-date" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="priority">Priority</label>
+                            <select id="priority" required>
+                                <option value="Urgent">Urgent</option>
+                                <option value="High">High</option>
+                                <option value="Medium" selected>Medium</option>
+                                <option value="Low">Low</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select id="category" required>
+                                <option value="Meeting">Meeting</option>
+                                <option value="Follow-up">Follow-up</option>
+                                <option value="Documentation">Documentation</option>
+                                <option value="Bug follow-up">Bug follow-up</option>
+                                <option value="Client follow up">Client follow up</option>
+                                <option value="Team meet">Team meet</option>
+                                <option value="App development">App development</option>
+                                <option value="Agreement follow-up">Agreement follow-up</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group switch-group">
+                        <label for="reminder">Set Reminder</label>
+                        <label class="switch">
+                            <input type="checkbox" id="reminder">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">Add Task</button>
+                </form>
+            </section>
+            
+            <section class="task-list-container glass-panel">
+                <div class="list-header">
+                    <h2>Your Tasks</h2>
+                </div>
+                <div id="task-list" class="task-list">
+                    <!-- Tasks will be injected here via JS -->
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
