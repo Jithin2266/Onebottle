@@ -1,6 +1,6 @@
 {
-  "name": "Task Manager Portal",
-  "short_name": "Tasks",
+  "name": "Daily Clock",
+  "short_name": "Daily Clock",
   "description": "A beautiful Cyberpunk Task Manager",
   "start_url": "/",
   "display": "standalone",
