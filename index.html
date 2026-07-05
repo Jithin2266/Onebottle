@@ -2,109 +2,143 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Daily Clock</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0b0213">
+    <meta name="theme-color" content="#1C1C1E">
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="background-elements">
-        <!-- IT Tech Grid -->
-        <div class="it-grid"></div>
-        
-        <!-- Binary Streams -->
-        <div class="binary-stream stream-1">10110010101101</div>
-        <div class="binary-stream stream-2">01001010110011</div>
-        <div class="binary-stream stream-3">11010010100101</div>
-        <div class="binary-stream stream-4">00101011010010</div>
-        <div class="binary-stream stream-5">10110010101101</div>
-    </div>
-    
-    <div class="container">
-        <header>
-            <h1>Daily Clock</h1>
-            <p>Manage your daily goals efficiently</p>
+    <div class="app-container">
+        <!-- TOP HEADER -->
+        <header class="app-header">
+            <div class="user-profile">
+                <div class="avatar">👨‍💻</div>
+                <div class="greeting">
+                    <span class="greeting-time">Good Morning ☁️</span>
+                    <span class="user-name">Welcome Back</span>
+                </div>
+            </div>
+            <button class="icon-btn">🔔</button>
         </header>
-        
-        <main class="dashboard">
-            <section class="task-form-container glass-panel">
-                <h2>Create New Task</h2>
-                <form id="task-form">
+
+        <!-- VIEW: DASHBOARD (Home) -->
+        <main id="view-dashboard" class="view active-view">
+            <!-- Search -->
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" placeholder="Search your task..." class="search-input">
+            </div>
+
+            <!-- Timeline -->
+            <div class="section-header">
+                <h2>Your Timeline</h2>
+                <span class="date-dropdown">June ⌄</span>
+            </div>
+            
+            <div class="timeline-strip">
+                <div class="date-item"><span>3</span><small>Tue</small></div>
+                <div class="date-item active"><span>4</span><small>Wed</small></div>
+                <div class="date-item"><span>5</span><small>Thu</small></div>
+                <div class="date-item"><span>6</span><small>Fri</small></div>
+                <div class="date-item"><span>7</span><small>Sat</small></div>
+            </div>
+
+            <!-- Task List -->
+            <div class="section-header" style="margin-top: 1.5rem;">
+                <h2>Today's Task</h2>
+                <span class="see-more">See more</span>
+            </div>
+
+            <div id="task-list" class="task-list">
+                <!-- Tasks injected here via JS -->
+            </div>
+        </main>
+
+        <!-- VIEW: NEW TASK (Form) -->
+        <main id="view-new-task" class="view">
+            <div class="view-header">
+                <h2>New Task</h2>
+            </div>
+            
+            <form id="task-form">
+                <div class="form-group">
+                    <label for="task-name">Title</label>
+                    <input type="text" id="task-name" required placeholder="Task Planner Mobile Apps">
+                </div>
+                
+                <div class="form-row">
                     <div class="form-group">
-                        <label for="task-name">Task Name</label>
-                        <input type="text" id="task-name" required placeholder="What needs to be done?">
-                    </div>
-                    
-                    <div class="form-group switch-group" style="margin-bottom: 1rem;">
-                        <label for="today-task">Quick Select: Today</label>
-                        <label class="switch">
-                            <input type="checkbox" id="today-task">
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="start-date">Start Date</label>
+                        <label for="start-date">Start date</label>
+                        <div class="input-with-icon">
                             <input type="date" id="start-date" required>
                         </div>
-                        <div class="form-group">
-                            <label for="completion-date">Completion Date</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="completion-date">End date</label>
+                        <div class="input-with-icon">
                             <input type="date" id="completion-date" required>
                         </div>
                     </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="priority">Priority</label>
-                            <select id="priority" required>
-                                <option value="Urgent">Urgent</option>
-                                <option value="High">High</option>
-                                <option value="Medium" selected>Medium</option>
-                                <option value="Low">Low</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="category">Category</label>
-                            <select id="category" required>
-                                <option value="Meeting">Meeting</option>
-                                <option value="Follow-up">Follow-up</option>
-                                <option value="Documentation">Documentation</option>
-                                <option value="Bug follow-up">Bug follow-up</option>
-                                <option value="Client follow up">Client follow up</option>
-                                <option value="Team meet">Team meet</option>
-                                <option value="App development">App development</option>
-                                <option value="Agreement follow-up">Agreement follow-up</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group switch-group">
-                        <label for="reminder">Set Reminder</label>
-                        <label class="switch">
-                            <input type="checkbox" id="reminder">
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
-                    
-                    <button type="submit" class="btn-primary">Add Task</button>
-                </form>
-            </section>
-            
-            <section class="task-list-container glass-panel">
-                <div class="list-header">
-                    <h2>Your Tasks</h2>
                 </div>
-                <div id="task-list" class="task-list">
-                    <!-- Tasks will be injected here via JS -->
+
+                <div class="form-group">
+                    <label for="priority">Workspace (Priority)</label>
+                    <select id="priority" required>
+                        <option value="Urgent">Urgent</option>
+                        <option value="High">High</option>
+                        <option value="Medium" selected>Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
                 </div>
-            </section>
+
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" required>
+                        <option value="Meeting">Meeting</option>
+                        <option value="Follow-up">Follow-up</option>
+                        <option value="Documentation">Documentation</option>
+                        <option value="Bug follow-up">Bug follow-up</option>
+                        <option value="Client follow up">Client follow up</option>
+                        <option value="Team meet">Team meet</option>
+                        <option value="App development">App development</option>
+                        <option value="Agreement follow-up">Agreement follow-up</option>
+                    </select>
+                </div>
+
+                <div class="form-group switch-group" style="margin-top:1rem;">
+                    <label for="reminder">Set Reminder</label>
+                    <label class="switch">
+                        <input type="checkbox" id="reminder">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-primary">Create</button>
+            </form>
         </main>
+
+        <!-- BOTTOM NAV -->
+        <nav class="bottom-nav">
+            <div class="nav-pill">
+                <button class="nav-item active" id="nav-home">
+                    <span class="nav-icon">🏠</span> Home
+                </button>
+                <button class="nav-item" id="nav-add">
+                    <span class="nav-icon">➕</span>
+                </button>
+                <button class="nav-item">
+                    <span class="nav-icon">📅</span>
+                </button>
+                <button class="nav-item">
+                    <span class="nav-icon">⚙️</span>
+                </button>
+            </div>
+        </nav>
     </div>
 </body>
 </html>
