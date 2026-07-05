@@ -163,34 +163,54 @@ header p {
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
+    gap: 1.5rem;
+    perspective: 1000px; /* Enables 3D space */
 }
 
 .stat-card {
     background: rgba(15, 23, 42, 0.5);
-    padding: 1.25rem;
+    padding: 1.5rem;
     border-radius: 12px;
     text-align: center;
     border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transform-style: preserve-3d;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
 }
 
 .stat-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(255, 87, 34, 0.2);
+    transform: translateY(-5px) rotateX(10deg) rotateY(-5deg);
+    box-shadow: 
+        -5px 15px 25px rgba(0, 0, 0, 0.5),
+        0 0 15px rgba(255, 87, 34, 0.3);
 }
 
 .stat-card h3 {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: var(--text-secondary);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
     font-weight: 500;
+    transform: translateZ(10px); /* Pushes text forward slightly */
 }
 
 .stat-card p {
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: var(--primary-color);
+    font-size: 3rem;
+    font-weight: 900;
+    color: #ffffff;
+    /* 3D text projection shadow */
+    text-shadow: 
+        1px 1px 0 var(--primary-color),
+        2px 2px 0 var(--primary-color),
+        3px 3px 0 #d84315,
+        4px 4px 0 #d84315,
+        5px 5px 0 #bf360c,
+        6px 6px 0 #bf360c,
+        7px 7px 15px rgba(255, 87, 34, 0.8);
+    transform: translateZ(30px); /* Projects the number forward in 3D */
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover p {
+    transform: translateZ(50px) scale(1.1); /* Pops out even more on hover */
 }
 
 .task-list-container {
