@@ -228,10 +228,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function formatDate(dateString) {
         if (!dateString) return 'N/A';
-        const options = { month: 'short', day: 'numeric', year: 'numeric' };
-        // We use split to avoid timezone shifting issues
         const [year, month, day] = dateString.split('-');
-        return new Date(year, month - 1, day).toLocaleDateString(undefined, options);
+        return `${day}-${month}-${year}`;
     }
 
     // Reminders and Notifications
