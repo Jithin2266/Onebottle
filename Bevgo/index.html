@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Search and discover the best beverages, prices, and mixology guides on Vaikittentha Paripadi.">
+  <title>വൈകിട്ടെന്താ പരിപാടി - Beverage Directory</title>
+  
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0b0c10">
+  <link rel="icon" type="image/png" href="icon-192.png">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>വൈകിട്ടെന്താ പരിപാടി</h1>
+      <p class="subtitle">Your ultimate guide to beverages and mixology</p>
+    </header>
+
+    <main>
+      <section class="controls">
+        <div class="search-bar">
+          <input type="text" id="search-input" placeholder="Search for your favorite drink..." aria-label="Search beverages">
+        </div>
+        <div class="filters">
+          <button class="filter-btn active" data-filter="All">All</button>
+          <button class="filter-btn" data-filter="Beer">Beer</button>
+          <button class="filter-btn" data-filter="Whiskey">Whiskey</button>
+          <button class="filter-btn" data-filter="Brandy">Brandy</button>
+          <button class="filter-btn" data-filter="Rum">Rum</button>
+          <button class="filter-btn" data-filter="Vodka">Vodka</button>
+        </div>
+      </section>
+
+      <section class="grid" id="beverage-grid">
+        <!-- Drink cards will be injected here via app.js -->
+      </section>
+    </main>
+  </div>
+
+  <!-- Modal for Drink Details -->
+  <div class="modal-overlay" id="modal-overlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true">
+      <span class="close-btn" id="close-btn" aria-label="Close modal">&times;</span>
+      <div class="modal-category" id="modal-category">Category</div>
+      <h2 class="modal-title" id="modal-title">Drink Name</h2>
+      
+      <div class="modal-section">
+        <h3>Description</h3>
+        <p id="modal-desc">Drink description goes here...</p>
+      </div>
+      
+      <div class="modal-section">
+        <h3>How to Mix</h3>
+        <p id="modal-mix">Mixology instructions go here...</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').then(registration => {
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }, err => {
+          console.log('ServiceWorker registration failed: ', err);
+        });
+      });
+    }
+  </script>
+</body>
+</html>
