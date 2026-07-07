@@ -310,7 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Google Calendar API Setup
     window.initGoogleAuth = function() {
         tokenClient = google.accounts.oauth2.initTokenClient({
-            client_id: '522920449959-r41dvle5v4eg7e48edltubcgardlh3ng.apps.googleusercontent.com',
+            client_id: '522920449959-4k6a784pu618csfpt58p6rae7b0onm7c.apps.googleusercontent.com',
             scope: 'https://www.googleapis.com/auth/calendar.events',
             callback: (response) => {
                 if (response.error) {
